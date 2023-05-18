@@ -4,12 +4,21 @@
  */
 package com.ApiRest.ApiRest.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
@@ -17,7 +26,10 @@ import lombok.Data;
  * @author fernan
  */
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Servidor implements Serializable {
     
     @Id
@@ -31,5 +43,7 @@ public class Servidor implements Serializable {
     private String procesador;
     private String ubicacion;
     private String sistemaOperativo;
-    
+     @OneToMany(mappedBy = "servidor", cascade = CascadeType.ALL)
+    @JsonIgnore // Ignorar la serialización de la lista de aplicaciones
+    private List<aplicacion> aplicaciones = new ArrayList<>();
 }

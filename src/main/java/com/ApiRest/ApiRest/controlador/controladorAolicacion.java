@@ -4,7 +4,7 @@
  */
 package com.ApiRest.ApiRest.controlador;
 
-import com.ApiRest.ApiRest.Repositorio.service.IaplicacionService;
+import com.ApiRest.ApiRest.Repositorio.IaplicacionRepo;
 import com.ApiRest.ApiRest.modelo.aplicacion;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class controladorAolicacion {
     
     
     @Autowired
-    private IaplicacionService aplicacionService;
+    private IaplicacionRepo aplicacionRepo;
     
     @GetMapping("/hola")
     public String hola(){
@@ -35,25 +35,22 @@ public class controladorAolicacion {
     
     @GetMapping("/lista")
     public List<aplicacion> listarAplicaciones() {
-        return aplicacionService.ListarAplicaciones();
+        return (List<aplicacion>) aplicacionRepo.findAll();
     }
 
     @PostMapping("/guardar")
     public void guardarAplicacion(@RequestBody aplicacion aplicacion) {
-        aplicacionService.guardar(aplicacion);
+        aplicacionRepo.save(aplicacion);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public void eliminarAplicacion(@PathVariable Long id) {
-        aplicacion aplicacion = aplicacionService.BuscarAplicacion(id);
-        if (aplicacion != null) {
-            aplicacionService.eliminar(aplicacion);
-        }
+       aplicacionRepo.deleteById(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/buscar/{id}")
     public aplicacion buscarAplicacion(@PathVariable Long id) {
-        return aplicacionService.BuscarAplicacion(id);
+        return aplicacionRepo.findById(id).orElse(null);
     }
     
 }

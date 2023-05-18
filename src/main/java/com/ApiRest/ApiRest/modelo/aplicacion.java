@@ -7,20 +7,28 @@ package com.ApiRest.ApiRest.modelo;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author fernan
  */
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class aplicacion implements Serializable {
     
     @Id
@@ -28,8 +36,7 @@ public class aplicacion implements Serializable {
     private Long id;
     private String nombre;
     private String version;
-
     @ManyToOne
-    @JoinColumn(name = "servidor_id", referencedColumnName = "id")
-    private Servidor servidor;
+    @JoinColumn(name = "servidor_id")
+    private Servidor servidor; 
 }

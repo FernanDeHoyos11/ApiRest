@@ -5,7 +5,7 @@
 package com.ApiRest.ApiRest.controlador;
 
 
-import com.ApiRest.ApiRest.Repositorio.service.IservidorService;
+import com.ApiRest.ApiRest.Repositorio.IservidorRepo;
 import com.ApiRest.ApiRest.modelo.Servidor;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class controladorServidor {
     
     @Autowired
-    private IservidorService servidorService;
+    private IservidorRepo servidorRepo;
     
     @GetMapping("/hola")
     public String hola(){
@@ -35,25 +35,22 @@ public class controladorServidor {
     
     @GetMapping("/lista")
     public List<Servidor> listarServidores() {
-        return servidorService.ListarServidor();
+        return (List<Servidor>) servidorRepo.findAll();
     }
 
     @PostMapping("/guardar")
     public void guardarServidor(@RequestBody Servidor servidor) {
-        servidorService.guardar(servidor);
+        servidorRepo.save(servidor);
     }
 
     @DeleteMapping("/eliminar/{id}")
     public void eliminarServidor(@PathVariable Long id) {
-        Servidor servidor = servidorService.BuscarServidor(id);
-        if (servidor != null) {
-            servidorService.eliminar(servidor);
-        }
+        servidorRepo.deleteById(id);
     }
 
     @GetMapping("/buscar/{id}")
     public Servidor buscarServidor(@PathVariable Long id) {
-        return servidorService.BuscarServidor(id);
+        return servidorRepo.findById(id).orElse(null);
     }
 
 }

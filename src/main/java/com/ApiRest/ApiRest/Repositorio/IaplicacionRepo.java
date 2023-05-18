@@ -6,6 +6,7 @@ package com.ApiRest.ApiRest.Repositorio;
 
 
 import com.ApiRest.ApiRest.modelo.aplicacion;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 
@@ -15,5 +16,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 //CrudRepository<entidad que manejara, tipo de id de la tabla o entidad>
 public interface IaplicacionRepo extends CrudRepository<aplicacion, Long>{
-    
+    List<aplicacion> findByServidorId(Long servidorId);
 }
