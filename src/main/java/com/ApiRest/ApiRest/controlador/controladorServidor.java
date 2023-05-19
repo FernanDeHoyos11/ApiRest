@@ -6,9 +6,11 @@ package com.ApiRest.ApiRest.controlador;
 
 
 import com.ApiRest.ApiRest.Repositorio.IservidorRepo;
+import com.ApiRest.ApiRest.Repositorio.especificacion.ServidorSpecifications;
 import com.ApiRest.ApiRest.modelo.Servidor;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,6 +53,12 @@ public class controladorServidor {
     @GetMapping("/buscar/{id}")
     public Servidor buscarServidor(@PathVariable Long id) {
         return servidorRepo.findById(id).orElse(null);
+    }
+    
+    @GetMapping("/con-mas-de-una-aplicacion")
+    public List<Servidor> obtenerServidoresConMasDeUnaAplicacion() {
+        Specification<Servidor> especificacion = ServidorSpecifications.servidoresConMasDeUnaAplicacion();
+        return servidorRepo.findAll(especificacion);
     }
 
 }
