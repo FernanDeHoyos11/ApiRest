@@ -85,6 +85,7 @@ public class controladorAolicacion {
 //    return aplicacionRepo.findAll(spec);
 //}
     
+//    SELECT * FROM aplicacion WHERE nombre = 'valor_nombre';
      @GetMapping("/aplicacion/{nombre}")
     public List<aplicacion> getAplicacionesPorNombre(@PathVariable String nombre) {
         Specification<aplicacion> spec = AplicacionSpecifications.porNombre(nombre);

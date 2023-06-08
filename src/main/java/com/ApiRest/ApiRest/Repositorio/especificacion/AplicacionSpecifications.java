@@ -16,6 +16,11 @@ import org.springframework.data.jpa.domain.Specification;
  * @author fernan
  */
 public class AplicacionSpecifications {
+    
+//    SELECT * FROM aplicacion
+//JOIN servidor ON aplicacion.servidor_id = servidor.id
+//WHERE servidor.sistema_operativo = 'valor_sistema_operativo';
+
      public static Specification<aplicacion> porSistemaOperativo(String sistemaOperativo) {
         return (root, query, criteriaBuilder) -> {
             Join<aplicacion, Servidor> servidorJoin = root.join(aplicacion_.servidor);
@@ -23,6 +28,7 @@ public class AplicacionSpecifications {
         };
     }
      
+     //    SELECT * FROM aplicacion WHERE nombre = 'valor_nombre';
       public static Specification<aplicacion> porNombre(String nombre) {
         return (root, query, criteriaBuilder) -> {
             return criteriaBuilder.equal(root.get(aplicacion_.nombre), nombre);
