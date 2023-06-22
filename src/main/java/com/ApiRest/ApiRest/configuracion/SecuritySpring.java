@@ -46,7 +46,7 @@ public class SecuritySpring extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.GET, "/aplicaciones/lista").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/aplicaciones/guardar").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/aplicaciones/servidor/so/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers(HttpMethod.GET, "/aplicaciones/buscar/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.GET, "/aplicaciones/buscar/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/aplicaciones/eliminar/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/aplicaciones/aplicacion/**").hasAnyRole("ADMIN", "USER")
                 // Rutas para los servidores
